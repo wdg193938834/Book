@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wdg.dao.TypeDAO">
+	<resultMap type="Type" id="TypeResult">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	<select id="getTypeList" parameterType="Map" resultType="Type">
+		select * from Type 
+	</select>
+	<select id="findById" parameterType="Integer" resultMap="TypeResult">
+		select * from type where id=#{id}
+	</select>
+	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Type" >
+		insert into type values(null,#{name},#{number});
+	</insert>
+	<update id="update" parameterType="Type">
+		update Type
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="number!=null and number!=''">
+				number=#{number},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		delete from Type where id=#{id}
+	</delete>
+   
+    
+</mapper>

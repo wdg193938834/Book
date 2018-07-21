@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wdg.dao.OrderItemDAO">
+	<resultMap type="CartItem" id="OrderItemResult">
+		<result property="id" column="id"/>
+		<result property="count" column="buynum"/>
+
+		<association property="book" column="book_id" select="com.wdg.dao.BookDAO.findById"></association>
+	</resultMap>
+	
+	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="CartItem" >
+		insert into orderitem values(null,#{book.id},#{count},#{order.id});
+	</insert>
+	<select id="getList" parameterType="Integer" resultMap="OrderItemResult">
+		select * from OrderItem where order_id=#{id} 
+		
+	</select>
+</mapper>
